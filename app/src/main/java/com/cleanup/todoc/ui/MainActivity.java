@@ -2,6 +2,7 @@ package com.cleanup.todoc.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * The adapter which handles the list of tasks
      */
-    private final TasksAdapter adapter = new TasksAdapter(tasks, this);
+    private final TasksAdapter adapter = new TasksAdapter( this);
 
     /**
      * The sort method to be used to display tasks
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         mTaskViewModel.getListLiveDataTask().observe(this, new Observer<List<TaskEntity>>() {
             @Override
             public void onChanged(List<TaskEntity> pTaskEntities) {
-                updateView(tasks);
+                updateView(pTaskEntities);
             }
         });
 
@@ -200,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             ProjectEntity taskProject = null;
             if (dialogSpinner.getSelectedItem() instanceof ProjectEntity) {
                 taskProject = (ProjectEntity) dialogSpinner.getSelectedItem();
+                Log.i("test log", "test log");
             }
 
 
@@ -207,9 +209,9 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogEditText.setError(getString(R.string.empty_task_name));
             }
             else if (taskProject != null) {
-
+                long id = taskProject.getId();
                 TaskEntity task = new TaskEntity(
-                        taskProject.getId(),
+                        id,
                         taskName,
                         new Date().getTime());
                 addTask(task);
@@ -248,6 +250,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * Updates the list of tasks in the UI
      */
+
+    // todo creer une methode dans le view model task qui attends une liste des taches en parametres la liste des taches et le type de filtre et retourne une liste des tache
     private void updateTasks() {
         if (tasks.size() == 0) {
             lblNoTasks.setVisibility(View.VISIBLE);
@@ -321,6 +325,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * Sets the data of the Spinner with projects to associate to a new task
      */
     private void populateDialogSpinner() {
+
         final ArrayAdapter<ProjectEntity> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mProjectEntities);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         if (dialogSpinner != null) {

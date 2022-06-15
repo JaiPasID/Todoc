@@ -18,6 +18,8 @@ import static org.junit.Assert.assertSame;
  *
  * @author Gaëtan HERFRAY
  */
+
+// todo test repository et view model chacun dans une class differente utiliser la librairie mockito ( when / then)
 public class TaskEntityUnitTest {
     @Test
     public void test_projects() {

@@ -74,9 +74,7 @@ public class ProjectEntity {
      *
      * @return the unique identifier of the project
      */
-    public long getId() {
-        return id;
-    }
+    public long getId() {return id;}
 
     /**
      * Returns the name of the project.

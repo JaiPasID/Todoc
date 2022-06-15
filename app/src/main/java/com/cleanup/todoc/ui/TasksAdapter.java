@@ -27,7 +27,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
      * The list of tasks the adapter deals with
      */
     @NonNull
-    private List<TaskEntity> tasks;
+    private List<TaskEntity> tasks  = new ArrayList<>();
 
     private List<ProjectEntity> mProjectEntities  = new ArrayList<>();
 
@@ -40,10 +40,10 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     /**
      * Instantiates a new TasksAdapter.
      *
-     * @param tasks the list of tasks the adapter deals with to set
+     *
      */
-    TasksAdapter(@NonNull final List<TaskEntity> tasks, @NonNull final DeleteTaskListener deleteTaskListener) {
-        this.tasks = tasks;
+    TasksAdapter( @NonNull final DeleteTaskListener deleteTaskListener) {
+
         this.deleteTaskListener = deleteTaskListener;
     }
 
@@ -151,7 +151,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
             lblTaskName.setText(task.getName());
             imgDelete.setTag(task);
 
-            final ProjectEntity taskProject = null;
+            final ProjectEntity taskProject = mProjectEntities.get(0);
             if (taskProject != null) {
                 imgProject.setSupportImageTintList(ColorStateList.valueOf(taskProject.getColor()));
                 lblProjectName.setText(taskProject.getName());

@@ -27,7 +27,6 @@ public class TaskViewModel extends ViewModel {
 
         mProjectRepository =  pProjectRepository;
         mTaskRepository =  pTaskRepository;
-        //TODO JE NE COMPRENDS CE QUE CELA FAIT
         mExecutor = Executors.newFixedThreadPool(2);
 
     }
