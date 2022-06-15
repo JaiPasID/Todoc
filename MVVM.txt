@@ -1,0 +1,13 @@
+database : La base de données et ses objets(DAO, entités, mappers)
+
+di : Les injections de dependances.
+
+model : Les entités de notre modèle de données.
+
+network : Les objets réponses pour appels réseaux, les mappers et les API.
+
+repository : Le Repository.
+
+ui : La vue et son viewModel
+
+util : Les classes utilitaires.
