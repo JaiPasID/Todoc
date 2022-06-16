@@ -9,7 +9,10 @@ import com.cleanup.todoc.model.ProjectEntity;
 import com.cleanup.todoc.model.TaskEntity;
 import com.cleanup.todoc.repository.ProjectRepository;
 import com.cleanup.todoc.repository.TaskRepository;
+import com.cleanup.todoc.ui.MainActivity;
+import com.cleanup.todoc.util.TaskComparator;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -65,5 +68,26 @@ public class TaskViewModel extends ViewModel {
 
     public LiveData<List<TaskEntity>> getListLiveDataTask(){
         return mTaskRepository.getAllTask();
+    }
+
+
+    public List<TaskEntity> mList(MainActivity.SortMethod pSortMethod, List<TaskEntity> pEntityList  ){
+
+        switch (pSortMethod) {
+            case ALPHABETICAL:
+                Collections.sort(pEntityList, new TaskComparator.TaskAZComparator());
+                break;
+            case ALPHABETICAL_INVERTED:
+                Collections.sort(pEntityList, new TaskComparator.TaskZAComparator());
+                break;
+            case RECENT_FIRST:
+                Collections.sort(pEntityList, new TaskComparator.TaskRecentComparator());
+                break;
+            case OLD_FIRST:
+                Collections.sort(pEntityList, new TaskComparator.TaskOldComparator());
+                break;
+
+        }
+        return pEntityList;
     }
 }

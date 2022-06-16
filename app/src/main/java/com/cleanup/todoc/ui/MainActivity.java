@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         mTaskViewModel.getListLiveDataProject().observe(this, new Observer<List<ProjectEntity>>() {
             @Override
             public void onChanged(List<ProjectEntity> pProjectEntities) {
-                //TODO faire des truc pour la vue
                 mProjectEntities = pProjectEntities;
             }
         });
@@ -160,7 +159,8 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        updateTasks();
+        List<TaskEntity> sortedTaskList = mTaskViewModel.mList(sortMethod, adapter.getTasks());
+        adapter.updateTasks(sortedTaskList, mProjectEntities);
 
         return super.onOptionsItemSelected(item);
     }
@@ -259,21 +259,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         } else {
             lblNoTasks.setVisibility(View.GONE);
             listTasks.setVisibility(View.VISIBLE);
-            switch (sortMethod) {
-                case ALPHABETICAL:
-                    Collections.sort(tasks, new TaskComparator.TaskAZComparator());
-                    break;
-                case ALPHABETICAL_INVERTED:
-                    Collections.sort(tasks, new TaskComparator.TaskZAComparator());
-                    break;
-                case RECENT_FIRST:
-                    Collections.sort(tasks, new TaskComparator.TaskRecentComparator());
-                    break;
-                case OLD_FIRST:
-                    Collections.sort(tasks, new TaskComparator.TaskOldComparator());
-                    break;
 
-            }
             adapter.updateTasks(tasks, mProjectEntities);
         }
     }
@@ -336,7 +322,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * List of all possible sort methods for task
      */
-    private enum SortMethod {
+    public enum SortMethod {
         /**
          * Sort alphabetical by name
          */

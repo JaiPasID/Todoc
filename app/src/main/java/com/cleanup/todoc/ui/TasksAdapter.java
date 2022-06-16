@@ -47,11 +47,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         this.deleteTaskListener = deleteTaskListener;
     }
 
-    /**
-     * Updates the list of tasks the adapter deals with.
-     *
-     * @param tasks the list of tasks the adapter deals with to set
-     */
+
+    protected List<TaskEntity> getTasks(){
+        return this.tasks;
+    }
+
     void updateTasks(@NonNull final List<TaskEntity> tasks, List<ProjectEntity> pProjectEntities) {
         this.tasks = tasks;
         mProjectEntities = pProjectEntities;

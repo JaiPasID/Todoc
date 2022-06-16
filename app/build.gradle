@@ -37,4 +37,12 @@ dependencies {
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // mockito
+    testImplementation "org.mockito:mockito-core:3.+"
+
+    //execute rule
+
+    implementation "androidx.arch.core:core-testing:2.1.0"
+
 }
