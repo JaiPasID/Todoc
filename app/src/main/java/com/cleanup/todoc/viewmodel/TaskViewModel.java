@@ -48,17 +48,17 @@ public class TaskViewModel extends ViewModel {
     */
 
     public void insertTask (TaskEntity pTaskEntity){
-       // mTaskRepository.insert(pTaskEntity);
+
         mExecutor.execute(()->mTaskRepository.insert(pTaskEntity));
     }
 
     public void updateTask (TaskEntity pTaskEntity){
-       // mTaskRepository.update(pTaskEntity);
+
         mExecutor.execute(()->mTaskRepository.update(pTaskEntity));
     }
 
     public void deleteTask (TaskEntity pTaskEntity){
-        //mTaskRepository.delete(pTaskEntity);
+
         mExecutor.execute(()->mTaskRepository.delete(pTaskEntity));
     }
 
@@ -71,7 +71,7 @@ public class TaskViewModel extends ViewModel {
     }
 
 
-    public List<TaskEntity> mList(MainActivity.SortMethod pSortMethod, List<TaskEntity> pEntityList  ){
+    public List<TaskEntity> getSortedList(MainActivity.SortMethod pSortMethod, List<TaskEntity> pEntityList  ){
 
         switch (pSortMethod) {
             case ALPHABETICAL:

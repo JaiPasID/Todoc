@@ -149,17 +149,26 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.filter_alphabetical) {
-            sortMethod = SortMethod.ALPHABETICAL;
-        } else if (id == R.id.filter_alphabetical_inverted) {
-            sortMethod = SortMethod.ALPHABETICAL_INVERTED;
-        } else if (id == R.id.filter_oldest_first) {
-            sortMethod = SortMethod.OLD_FIRST;
-        } else if (id == R.id.filter_recent_first) {
-            sortMethod = SortMethod.RECENT_FIRST;
+        switch (id){
+
+
+            case R.id.filter_alphabetical_inverted :
+                sortMethod = SortMethod.ALPHABETICAL_INVERTED;
+                break;
+            case R.id.filter_oldest_first :
+                sortMethod = SortMethod.OLD_FIRST;
+                break;
+            case R.id.filter_recent_first :
+                sortMethod = SortMethod.RECENT_FIRST;
+                break;
+            default:
+                sortMethod = SortMethod.ALPHABETICAL;
+                break;
         }
 
-        List<TaskEntity> sortedTaskList = mTaskViewModel.mList(sortMethod, adapter.getTasks());
+
+
+        List<TaskEntity> sortedTaskList = mTaskViewModel.getSortedList(sortMethod, adapter.getTasks());
         adapter.updateTasks(sortedTaskList, mProjectEntities);
 
         return super.onOptionsItemSelected(item);
@@ -173,6 +182,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private void addTask (@NonNull TaskEntity task) {
         mTaskViewModel.insertTask(task);
     }
+
 
 
     private void updateView(List<TaskEntity> tasks) {

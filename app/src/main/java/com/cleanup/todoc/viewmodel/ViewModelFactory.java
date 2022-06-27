@@ -15,7 +15,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     private ProjectRepository mProjectRepository;
     private TaskRepository mTaskRepository;
 
-    private static ViewModelFactory mViewModelFactory;
+    private static ViewModelFactory sViewModelFactory;
 
     /**
      * Singleton
@@ -23,12 +23,12 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
      */
     public static ViewModelFactory getInstance(Context context) {
 
-        if (mViewModelFactory == null) {
+        if (sViewModelFactory == null) {
             synchronized (ViewModelFactory.class) {
-                mViewModelFactory = new ViewModelFactory(context);
+                sViewModelFactory = new ViewModelFactory(context);
             }
         }
-        return mViewModelFactory;
+        return sViewModelFactory;
     }
 
     /**
@@ -42,7 +42,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     }
 
 
-    //TODO JE NE COMPRENDS PAS SON FONCTIONNEMENT
+
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
